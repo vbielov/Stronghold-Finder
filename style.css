@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+    background-color: #040d16;
+
+    width: 100%;
+    height: 100%;
+
+    font-family: 'minecraftregular';
+    font-size: 25px;
+    color: #e8e8e8;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color:#b3b3b3;
+}
+
+.link {
+    border-bottom: 2px solid #b3b3b365;
+}
+
+
+input {
+    margin-left: 10px;
+
+    border: none;
+    border-bottom: 2px solid #b3b3b365;
+    background: transparent;
+
+    padding: 5px;
+    margin-top: 5px;
+    font-family: 'minecraftregular';
+    font-size: 20px;
+    color: white;
+}
+
+.logo {
+    margin-top: 20px;
+    width: 75px;
+    height: 75px;
+}
+
+.inputField {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.command {
+    width: 30vw;
+    max-width: 515px;
+}
+
+.fastMode {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.manualMode {
+    display: flex;
+    flex-direction: row;
+}
+
+.vectorContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+}
+
+button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: inherit;
+    font-family: inherit;
+    color: black;
+    padding: 1.25rem 2rem;
+    background: #e8e8e8;
+}
+
+button:hover {
+    opacity: 0.75;
+}

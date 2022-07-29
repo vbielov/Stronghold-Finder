@@ -37,16 +37,22 @@ var InputData = /** @class */ (function () {
     }
     return InputData;
 }());
+function AssignValueToInput(inputID, value) {
+    var inputElement = document.getElementById(inputID);
+    if (inputElement === undefined || inputElement === null)
+        return;
+    inputElement.value = value;
+}
 function LoadCookie() {
     if (document.cookie.indexOf('firstPoint') === -1)
         return;
     var input = JSON.parse(document.cookie);
-    document.getElementById("first_VectorX").value = input.firstPoint.x.toString();
-    document.getElementById("first_VectorZ").value = (-input.firstPoint.y).toString();
-    document.getElementById("first_VectorAngle").value = input.firstDegree.toString();
-    document.getElementById("second_VectorX").value = input.secondPoint.x.toString();
-    document.getElementById("second_VectorZ").value = (-input.secondPoint.x).toString();
-    document.getElementById("second_VectorAngle").value = input.secondDegree.toString();
+    AssignValueToInput("first_VectorX", input.firstPoint.x.toString());
+    AssignValueToInput("first_VectorZ", (-input.firstPoint.y).toString());
+    AssignValueToInput("first_VectorAngle", input.firstDegree.toString());
+    AssignValueToInput("second_VectorX", input.secondPoint.x.toString());
+    AssignValueToInput("second_VectorZ", (-input.secondPoint.x).toString());
+    AssignValueToInput("second_VectorAngle", input.secondDegree.toString());
     return input;
 }
 function GetInput() {
@@ -103,36 +109,61 @@ var rings = [
     [19712, 21248, 36],
     [22784, 24320, 9], // 8 ring
 ];
-function CalculateAllStrongHolds(locatedStronghold) {
+function GetRing(locatedStronghold) {
     var locatedDst = Vector.Distance(new Vector(0, 0), locatedStronghold);
     for (var i = 0; i < rings.length; i++) {
-        var strongHolds = [locatedStronghold];
         if (locatedDst > rings[i][0] && locatedDst < rings[i][1]) {
-            var addDegree = 360 / rings[i][2];
-            for (var o = 1; o < rings[i][2]; o++) {
-                var rotatedVector = Vector.Rotate(locatedStronghold, new Vector(0, 0), addDegree * o);
-                strongHolds.push(new Vector(rotatedVector.x, -rotatedVector.y));
-            }
-            return strongHolds;
+            return i;
         }
-        console.error("the intersection coordinates are outside the generation ring.");
-        return strongHolds;
     }
+    return -1;
 }
-// TODO:    Display other strongholds on graph editor
-//          Make command reading of F3 + C
+function GetGraphBounds(points) {
+    var bounds = {
+        left: Number.MAX_SAFE_INTEGER,
+        right: Number.MIN_SAFE_INTEGER,
+        bottom: Number.MAX_SAFE_INTEGER,
+        top: Number.MIN_SAFE_INTEGER
+    };
+    for (var i = 0; i < points.length; i++) {
+        bounds.left = Math.min(points[i].x, bounds.left);
+        bounds.right = Math.max(points[i].x, bounds.right);
+        bounds.bottom = Math.min(points[i].y, bounds.bottom);
+        bounds.top = Math.max(points[i].y, bounds.top);
+    }
+    var scale = 1.5;
+    var width = bounds.right - bounds.left;
+    var height = bounds.top - bounds.bottom;
+    bounds.left -= (width * scale - width) / 2;
+    bounds.right += (width * scale - width) / 2;
+    bounds.bottom -= (height * scale - height) / 2;
+    bounds.top += (height * scale - height) / 2;
+    return bounds;
+}
+// TODO:    Make command reading of F3 + C
 //          Design website
 //          Write instruction on how to use
+var elt = document.getElementById('calculator');
+// @ts-ignore
+var desmosCalculator = Desmos.GraphingCalculator(elt, { expressions: false });
+function UpdateDesmos(input, rays, strongHold) {
+    var expressions = desmosCalculator.getExpressions();
+    desmosCalculator.removeExpressions(expressions);
+    desmosCalculator.setExpression({ id: 'ray1', latex: 'f(x)=(' + rays[0].slope + ')x +' + rays[0].tangent });
+    desmosCalculator.setExpression({ id: 'ray2', latex: 'g(x)=(' + rays[1].slope + ')x +' + rays[1].tangent });
+    desmosCalculator.setExpression({ id: 'point1', latex: 'A=(' + input.firstPoint.x + ',' + input.firstPoint.y + ')', label: 'First Throw', showLabel: true });
+    desmosCalculator.setExpression({ id: 'point2', latex: 'B=(' + input.secondPoint.x + ',' + input.secondPoint.y + ')', label: 'Second Throw', showLabel: true });
+    desmosCalculator.setExpression({ id: 'point3', latex: 'C=(' + strongHold.x + ',' + strongHold.y + ')', label: 'Stronghold ' + new Vector(strongHold.x, -strongHold.y), showLabel: true });
+    desmosCalculator.setMathBounds(GetGraphBounds([new Vector(0, 0), input.firstPoint, input.secondPoint, strongHold]));
+}
 function GetStrongholdPosition() {
     var input = GetInput();
     var rays = CalculateRays(input);
-    var strongHolds = CalculateAllStrongHolds(LinearFunction.GetIntersection(rays[0], rays[1]));
-    console.log(strongHolds);
-    var elt = document.getElementById('calculator');
-    // @ts-ignore
-    var calculator = Desmos.GraphingCalculator(elt);
-    calculator.setExpression({ id: 'graph1', latex: 'f(x)=(' + rays[0].slope + ')x +' + rays[0].tangent });
-    calculator.setExpression({ id: 'graph2', latex: 'g(x)=(' + rays[1].slope + ')x +' + rays[1].tangent });
+    var strongHold = LinearFunction.GetIntersection(rays[0], rays[1]);
+    UpdateDesmos(input, rays, strongHold);
 }
 LoadCookie();
-document.getElementById("calculate_Button").addEventListener("click", GetStrongholdPosition);
+var button = document.getElementById("calculate_Button");
+if (button !== undefined && button !== null) {
+    button.addEventListener("click", GetStrongholdPosition);
+}

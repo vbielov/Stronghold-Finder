@@ -1,37 +1,73 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stronghold Finder</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./font/minecraftFonts.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
   </head>
-  <body style="margin: 0">
+  <body>
     <main>
-      <div class="columm">
-        <div class="row">
-          <h2 style="margin: 0">First vector:</h2>
-          <label>X:</label>
-          <input type="number" id="first_VectorX" value="0">
-          <label>Z:</label>
-          <input type="number" id="first_VectorZ" value="0">
-          <label>Angle:</label>
-          <input type="number" id="first_VectorAngle" max="180" min="-180" value="0">
+
+      <a href="#"><img class="logo" src="./logo.webp"></a>
+      <h2 class="title">Stronghold Finder (in dev.)</h2>
+      <a class="link" href="./FAQ.html">FAQ - How to use</a>
+      <div class="fastMode">
+        <p>Fast Search: F3 + C</p>
+
+        <div class="inputField">
+          <label>first throw</label>
+          <input class="command" type="text" id="command_throw1" placeholder="/execute in ...">
         </div>
-        <div class="row">
-          <h2 style="margin: 0">Second vector:</h2>
-          <label>X:</label>
-          <input type="number" id="second_VectorX" value="0">
-          <label>Z:</label>
-          <input type="number" id="second_VectorZ" value="0">
-          <label>Angle:</label>
-          <input type="number" id="second_VectorAngle" max="180" min="-180" value="0">
+        
+        <div class="inputField">
+          <label>second throw</label>
+          <input class="command" type="text" id="command_throw2" placeholder="/execute in ...">
         </div>
-        <button id="calculate_Button">Calculate</button>
-        <div id="calculator" style="width: 600px; height: 400px;"></div>
       </div>
+
+      <p style="margin-top: 50px">Manual Search</p>
+      <div class="manualMode">
+        <div class="vectorContainer">
+          <p style="margin: 0">First vector</p>
+          <div class="inputField">
+            <label>x:</label>
+            <input type="number" id="first_VectorX" value="0">
+          </div>
+          <div class="inputField">
+            <label>z:</label>
+            <input type="number" id="first_VectorZ" value="0">
+          </div>
+          <div class="inputField">
+            <label>angle:</label>
+            <input type="number" id="first_VectorAngle" max="180" min="-180" value="0">
+          </div>
+        </div>
+
+        <div class="vectorContainer">
+          <p style="margin: 0">Second vector</p>
+          <div class="inputField">
+            <label>x:</label>
+            <input type="number" id="second_VectorX" value="0">
+          </div>
+          <div class="inputField">
+            <label>z:</label>
+            <input type="number" id="second_VectorZ" value="0">
+          </div>
+          <div class="inputField">
+            <label>angle:</label>
+            <input type="number" id="second_VectorAngle" max="180" min="-180" value="0">
+          </div>
+        </div>
+      </div>
+
+      <button id="calculate_Button" style="margin-top: 50px; margin-bottom:50px;">Find Stronghold</button>
+
+      <div id="calculator" style="width: 600px; height: 400px;"></div>
+
     </main>
     <script type="text/javascript" src="./script.js"></script>
   </body>
