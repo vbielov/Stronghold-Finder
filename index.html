@@ -9,66 +9,84 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
   </head>
-  <body>
+  <body class="column">
     <main>
-
-      <a href="#"><img class="logo" src="logo.webp"></a>
-      <h3 class="title">Stronghold Finder (in dev.)</h3>
-      <a class="link" href="FAQ.html">FAQ - How to use</a>
-      <div class="fastMode">
-        <p>Fast Search: F3 + C</p>
-
-        <div class="inputField">
-          <label>first throw</label>
-          <input class="command" type="text" id="command_throw1" placeholder="/execute in ...">
+      <!-- Logo + Title + Link to FAQ -->
+      <a href="#" class="logo"><img class="logo" src="logo.webp"></a>
+      <h3>Stronghold Finder (in dev.)</h3>
+      <a href="FAQ.html">FAQ - How to use</a>
+      
+      <!-- Input selector -->
+      <div class="inputSelector row">
+        <div class="inputOption column offsetsides offsetheights">
+          <input class="radioInput" type="radio" name="radioInput" id="radioInputCommand" checked>
+          <span class="visibleOption">Command Search</span>
         </div>
-        
-        <div class="inputField">
-          <label>second throw</label>
-          <input class="command" type="text" id="command_throw2" placeholder="/execute in ...">
-        </div>
-      </div>
-
-      <p style="margin-top: 50px">Manual Search</p>
-      <div class="manualMode">
-        <div class="vectorContainer">
-          <p style="margin: 0">First vector</p>
-          <div class="inputField">
-            <label>x:</label>
-            <input type="number" id="first_VectorX" value="0">
-          </div>
-          <div class="inputField">
-            <label>z:</label>
-            <input type="number" id="first_VectorZ" value="0">
-          </div>
-          <div class="inputField">
-            <label>angle:</label>
-            <input type="number" id="first_VectorAngle" max="180" min="-180" value="0">
-          </div>
-        </div>
-
-        <div class="vectorContainer">
-          <p style="margin: 0">Second vector</p>
-          <div class="inputField">
-            <label>x:</label>
-            <input type="number" id="second_VectorX" value="0">
-          </div>
-          <div class="inputField">
-            <label>z:</label>
-            <input type="number" id="second_VectorZ" value="0">
-          </div>
-          <div class="inputField">
-            <label>angle:</label>
-            <input type="number" id="second_VectorAngle" max="180" min="-180" value="0">
-          </div>
+  
+        <div class="inputOption column offsetsides offsetheights">
+          <input class="radioInput" type="radio" name="radioInput" id="radioInputManual">
+          <span class="visibleOption">Manual Search</span>
         </div>
       </div>
 
-      <button id="calculate_Button" style="margin-top: 50px;">Find Stronghold</button>
-      <p id="output" class="title"></p>
-      <div id="calculator" class="calculator"></div>
+      <!-- Command input -->
+      <div id="commandInput">
+        <form class="row">
+          <div class="command column offsetsides">
+            <label>first throw</label>
+            <label>second throw</label>
+          </div>
+          <div class="command column">
+            <input type="text" id="command_throw1" placeholder="/execute in ...">
+            <input type="text" id="command_throw2" placeholder="/execute in ...">
+          </div>
+        </form>
+      </div>
+
+      <!-- Manual input -->
+      <div id="manualInput">
+        <div class="row manualInput">
+          <div class="column offsetsides offsetheights">
+            First point
+            <div class="inputField">
+              <label>x:</label>
+              <input type="number" id="first_VectorX" value="0">
+            </div>
+            <div class="inputField">
+              <label>z:</label>
+              <input type="number" id="first_VectorZ" value="0">
+            </div>
+            <div class="inputField">
+              <label>angle:</label>
+              <input type="number" id="first_VectorAngle" max="180" min="-180" value="0">
+            </div>
+          </div>
+  
+          <div class="column offsetsides offsetheights">
+            Second point
+            <div class="inputField">
+              <label>x:</label>
+              <input type="number" id="second_VectorX" value="0">
+            </div>
+            <div class="inputField">
+              <label>z:</label>
+              <input type="number" id="second_VectorZ" value="0">
+            </div>
+            <div class="inputField">
+              <label>angle:</label>
+              <input type="number" id="second_VectorAngle" max="180" min="-180" value="0">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Button + Output + Desmos -->
+      <button class="offsetheights" id="calculate_Button">Find Stronghold</button>
+      <p id="output"></p>
+      <div class="calculator" id="calculator"></div>
+
 
     </main>
-    <script type="module" src="scripts/Main.js"></script>
+    <script type="module" src="scripts/Programm.js"></script>
   </body>
 </html>

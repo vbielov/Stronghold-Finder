@@ -1,4 +1,4 @@
-import { WriteOutput } from "./Main.js";
+import { WriteOutput } from "./Programm.js";
 import { Vector } from "./Vector.js";
 const elementPos1_X = document.getElementById("first_VectorX");
 const elementPos1_Z = document.getElementById("first_VectorZ");

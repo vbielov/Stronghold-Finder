@@ -1,7 +1,4 @@
-TODO: 
-- footer
-- function to hide the manual mode
-- chunk correction [4, ~, 4]
+TODO:
 - search of other strongholds in ring
 - try correcting the degree correction
 - Write FAQ - How to use, How it works
@@ -9,7 +6,15 @@ TODO:
 - language option?
 
 DONE:
+/ fouth commit
+- chunk correction [4, ~, 4] (why? will probably remove in future)
+- function to hide the manual mode
+- main structure
+/ third commit
 - tracking down invalid input
 - split the script into modules
+/ second commit
 - Make command reading of F3 + C
 - Design website
+/ first commit
+- base
