@@ -1,0 +1,15 @@
+TODO: 
+- footer
+- function to hide the manual mode
+- chunk correction [4, ~, 4]
+- search of other strongholds in ring
+- try correcting the degree correction
+- Write FAQ - How to use, How it works
+- animated logo?
+- language option?
+
+DONE:
+- tracking down invalid input
+- split the script into modules
+- Make command reading of F3 + C
+- Design website

@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stronghold Finder</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./font/minecraftFonts.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="font/minecraftFonts.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
   </head>
   <body>
     <main>
 
-      <a href="#"><img class="logo" src="./logo.webp"></a>
-      <h2 class="title">Stronghold Finder (in dev.)</h2>
-      <a class="link" href="./FAQ.html">FAQ - How to use</a>
+      <a href="#"><img class="logo" src="logo.webp"></a>
+      <h3 class="title">Stronghold Finder (in dev.)</h3>
+      <a class="link" href="FAQ.html">FAQ - How to use</a>
       <div class="fastMode">
         <p>Fast Search: F3 + C</p>
 
@@ -64,11 +64,11 @@
         </div>
       </div>
 
-      <button id="calculate_Button" style="margin-top: 50px; margin-bottom:50px;">Find Stronghold</button>
-
-      <div id="calculator" style="width: 600px; height: 400px;"></div>
+      <button id="calculate_Button" style="margin-top: 50px;">Find Stronghold</button>
+      <p id="output" class="title"></p>
+      <div id="calculator" class="calculator"></div>
 
     </main>
-    <script type="text/javascript" src="./script.js"></script>
+    <script type="module" src="scripts/Main.js"></script>
   </body>
 </html>

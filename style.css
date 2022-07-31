@@ -14,6 +14,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 a {
@@ -66,13 +67,18 @@ input {
 .manualMode {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    flex: center;
+    justify-content: center;
 }
 
 .vectorContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 20px;
+    justify-content: center;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 button {
@@ -92,4 +98,14 @@ button {
 
 button:hover {
     opacity: 0.75;
+}
+
+.calculator {
+    width: 600px;
+    max-width: 80%;
+    height: 400px;
+}
+
+.title {
+    text-align: center;
 }
