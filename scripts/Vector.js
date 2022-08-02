@@ -9,11 +9,20 @@ export class Vector {
     static Sub(v1, v2) {
         return new Vector(v1.x - v2.x, v1.y - v2.y);
     }
+    static Multiply(vector, value) {
+        return new Vector(vector.x * value, vector.y * value);
+    }
+    static Divide(vector, value) {
+        return new Vector(vector.x / value, vector.y / value);
+    }
     static DotProduct(v1, v2) {
         return v1.x * v2.x + v1.y * v2.y;
     }
     static Length(vector) {
         return Math.sqrt(this.DotProduct(vector, vector));
+    }
+    static Normilized(vector) {
+        return this.Divide(vector, this.Length(vector));
     }
     static Distance(v1, v2) {
         return this.Length(this.Sub(v1, v2));

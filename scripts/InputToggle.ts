@@ -1,13 +1,20 @@
 // possible inputs: "commandInput", "manualInput"
 
-var selectedElement: string = "manualInput"; // will be replaced onload in Programm
-
-(<HTMLInputElement> document.getElementById("radioInputCommand")).onclick = () => { Select("commandInput"); };
-(<HTMLInputElement> document.getElementById("radioInputManual")).onclick = () => { Select("manualInput"); };
-
-export function Select(elementID: string)
+function IsInputChecked(id: string): boolean
 {
-    (<HTMLDivElement> document.getElementById(selectedElement)).style.display = "none";
-    (<HTMLDivElement> document.getElementById(elementID)).style.display = "block";
-    selectedElement = elementID;
+    return (<HTMLInputElement> document.getElementById(id)).checked;
 }
+
+function HideElement(id: string, value: boolean): void
+{
+    (<HTMLElement> document.getElementById(id)).style.display = value === true ? "none" : "block";
+}
+
+export function Update()
+{
+    HideElement("commandInput", IsInputChecked("radioInputCommand") === false);
+    HideElement("manualInput", IsInputChecked("radioInputManual") === false);
+}
+
+(<HTMLInputElement> document.getElementById("radioInputCommand")).onclick = () => { Update(); };
+(<HTMLInputElement> document.getElementById("radioInputManual")).onclick = () => { Update(); };

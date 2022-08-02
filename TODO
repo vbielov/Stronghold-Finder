@@ -1,15 +1,17 @@
 TODO:
-- search of other strongholds in ring
-- try correcting the degree correction
+- rework desmos
 - Write FAQ - How to use, How it works
 - animated logo?
 - language option?
 
 DONE:
+- search of other strongholds in ring
+- removed unnecessary correction of the degree
+    and combined everything related to the StrongholdFinder into one script
 / fouth commit
 - chunk correction [4, ~, 4] (why? will probably remove in future)
-- function to hide the manual mode
-- main structure
+- function to hide the manual input
+- rework
 / third commit
 - tracking down invalid input
 - split the script into modules

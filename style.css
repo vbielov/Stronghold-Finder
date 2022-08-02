@@ -6,7 +6,7 @@ body {
     align-items: center;
 
     background-color: #040d16;
-    color: white;
+    color: #e8e8e8;
     font-family: 'minecraftregular';
     font-size: 24px;
     max-height: 100%;
@@ -25,6 +25,8 @@ main {
 a {
     text-decoration: none;
     color: rgb(106, 106, 106);
+    border-bottom: 2px solid;
+    border-color: #494f54;
 }
 
 p {
@@ -32,32 +34,38 @@ p {
     text-align: center;
 }
 
+label {
+    margin-right: 5px;
+}
+
 input {
     min-width: 100px;
     border: 0;
     background-color: #040d16;
     border-bottom: 2px solid;
-    border-color: rgb(106, 106, 106);
-    color: white;
+    border-color: #494f54;
+    color: #e8e8e8;
     font-family: 'minecraftregular';
-    font-size: 24px;
+    font-size: 20px;
 }
 
-input::placeholder {
-    color: rgb(106, 106, 106);
-}
-
-button {
+.findStronghold {
     border: 0;
     padding: 1.25rem 2rem;
     font-family: 'minecraftregular';
     font-size: 24px;
     transition: 100ms;
     cursor: pointer;
+    color: black;
+    background-color: #e8e8e8;
 }
 
-button:hover {
+.findStronghold:hover {
     opacity: 0.75;
+}
+
+.findStronghold:active {
+    padding: 1.25rem 3rem;
 }
 
 .row {
@@ -73,13 +81,14 @@ button:hover {
     align-items: center;
 }
 
-.command {
-    align-items: flex-start;
+.offsetheights {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
-.manualInput {
-    display: flex;
-    flex-wrap: wrap;
+.offsetsides {
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .logo {
@@ -87,22 +96,34 @@ button:hover {
     justify-content: center;
     width: 128px; 
     height: 128px;
+    border: 0;
+}
+
+.commandInput {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+input::placeholder {
+    color: rgb(106, 106, 106);
+    font-size: 20px;
+}
+
+.inputField {
+   margin-top: 10px;
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.manualInput {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .calculator {
     margin-top: 20px;
     width: 500px;
     height: 300px;
-}
-
-.offsetheights {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.offsetsides {
-    margin-left: 20px;
-    margin-right: 20px;
 }
 
 .inputSelector {
@@ -125,7 +146,7 @@ button:hover {
     height: 30px;
     text-align: center;
     z-index: 0;
-    border-color: white;
+    border-color: #e8e8e8;
 }
 
 #radioInputCommand:checked ~ .visibleOption {
@@ -135,4 +156,18 @@ button:hover {
 
 #radioInputManual:checked ~ .visibleOption {
     border-bottom: 2px solid;
+}
+
+#radioInputCommand:not(:checked):hover ~ .visibleOption {
+    border-bottom: 2px solid;
+    border-color: #494f54;
+}
+
+#radioInputManual:not(:checked):hover ~ .visibleOption {
+    border-bottom: 2px solid;
+    border-color: #494f54;
+}
+
+#output {
+    cursor: pointer;
 }

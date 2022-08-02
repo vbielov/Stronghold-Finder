@@ -31,14 +31,14 @@
 
       <!-- Command input -->
       <div id="commandInput">
-        <form class="row">
-          <div class="command column offsetsides">
+        <form class="column offsetheights">
+          <div class="inputField row">
             <label>first throw</label>
-            <label>second throw</label>
+            <input class="commandInput" type="text" id="command_throw1" placeholder="/execute in ...">
           </div>
-          <div class="command column">
-            <input type="text" id="command_throw1" placeholder="/execute in ...">
-            <input type="text" id="command_throw2" placeholder="/execute in ...">
+          <div class="inputField row">
+            <label>second throw</label>
+            <input class="commandInput" type="text" id="command_throw2" placeholder="/execute in ...">
           </div>
         </form>
       </div>
@@ -81,7 +81,7 @@
       </div>
 
       <!-- Button + Output + Desmos -->
-      <button class="offsetheights" id="calculate_Button">Find Stronghold</button>
+      <button class="findStronghold offsetheights" id="calculate_Button">Find Stronghold</button>
       <p id="output"></p>
       <div class="calculator" id="calculator"></div>
 

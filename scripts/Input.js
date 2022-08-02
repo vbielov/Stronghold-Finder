@@ -1,4 +1,4 @@
-import { WriteOutput } from "./Programm.js";
+import { InputData } from "./StrongholdFinder.js";
 import { Vector } from "./Vector.js";
 const elementPos1_X = document.getElementById("first_VectorX");
 const elementPos1_Z = document.getElementById("first_VectorZ");
@@ -8,8 +8,6 @@ const elementPos2_Z = document.getElementById("second_VectorZ");
 const elementAngle2 = document.getElementById("second_VectorAngle");
 const elementCommand1 = document.getElementById("command_throw1");
 const elementCommand2 = document.getElementById("command_throw2");
-export class InputData {
-}
 export class Input {
     // Public function
     static ReadInput() {
@@ -24,7 +22,6 @@ export class Input {
         if (manualInput !== null)
             return manualInput;
         // give up.
-        WriteOutput("Incorrect input.");
         return null;
     }
     static LoadCookie() {

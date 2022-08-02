@@ -1,4 +1,4 @@
-import { WriteOutput } from "./Programm.js";
+import { InputData } from "./StrongholdFinder.js";
 import { Vector } from "./Vector.js";
 
 const elementPos1_X = (<HTMLInputElement> document.getElementById("first_VectorX"));
@@ -10,14 +10,6 @@ const elementAngle2 = (<HTMLInputElement> document.getElementById("second_Vector
 
 const elementCommand1 = (<HTMLInputElement> document.getElementById("command_throw1"));
 const elementCommand2 = (<HTMLInputElement> document.getElementById("command_throw2"));
-
-export class InputData
-{
-    firstPoint: Vector;
-    firstDegree: number;
-    secondPoint: Vector;
-    secondDegree: number;
-}
 
 export class Input
 {
@@ -37,7 +29,6 @@ export class Input
         if(manualInput !== null) return manualInput;
 
         // give up.
-        WriteOutput("Incorrect input.");
         return null;
     }
 

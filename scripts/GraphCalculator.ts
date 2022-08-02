@@ -1,5 +1,5 @@
-import { InputData } from "./Input.js";
 import { LinearFunction } from "./LinearFunction.js";
+import { InputData } from "./StrongholdFinder.js";
 import { Vector } from "./Vector.js";
 
 export class GraphCalculator

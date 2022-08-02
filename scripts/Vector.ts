@@ -19,6 +19,16 @@ export class Vector
         return new Vector(v1.x - v2.x, v1.y - v2.y);
     }
 
+    static Multiply(vector: Vector, value: number): Vector
+    {
+        return new Vector(vector.x * value, vector.y * value);
+    }
+
+    static Divide(vector: Vector, value: number): Vector
+    {
+        return new Vector(vector.x / value, vector.y / value);
+    }
+
     static DotProduct(v1: Vector, v2: Vector): number
     {
         return v1.x * v2.x + v1.y * v2.y;
@@ -27,6 +37,11 @@ export class Vector
     static Length(vector: Vector): number
     {
         return Math.sqrt(this.DotProduct(vector, vector));
+    }
+
+    static Normilized(vector: Vector): Vector
+    {
+        return this.Divide(vector, this.Length(vector));
     }
 
     static Distance(v1: Vector, v2: Vector): number
