@@ -1,33 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stronghold Finder - FAQ</title>
-    <link rel="stylesheet" href="font/minecraftFonts.css">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  </head>
-  <body class="column">
-    <main>
-      <a href="./index.html" class="logo"><img class="logo" src="logo.webp"></a>
-      <h3>FAQ</h3>
-      <p class="offsetheights">1. How to use?</p>
-      <p>- Command input</p>
-      ...
-      <p>- Manual input</p>
-      ...
-      <p>- Time to dig</p>
-      ...
-      <p class="offsetheights">2. How it works?</p>
-      <p>- Not a perfect solution</p>
-      ...
-      <p>- Converting minecraft coords system in valid one</p>
-      ...
-      <p>- Finding slope for linear functions</p>
-      ...
-      <p>- Finding intersection of linear functions</p>
-      ...
-    </main>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stronghold Finder - FAQ</title>
+  <link rel="stylesheet" href="font/minecraftFonts.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+</head>
+
+<body class="column">
+  <main>
+    <a href="./index.html" class="logo"><img class="logo" src="logo.webp"></a>
+    <h3>FAQ</h3>
+    <p class="offsetheights">1. How to use?</p>
+    <p>Before use</p>
+    <p>
+      Для поиска крепости требуется минимум 2 глаз эндера,
+      желательно иметь optifine или другую модификацию для zoom
+
+      Шаг 1.
+      Включите режим "отладки" - F3
+      Выпустите глаз эндера в первой локации и
+      наведите курсор ровно по центру глаза пока он в полете.
+      Для удобства можно включить zoom с помощью модификации
+      или понизить fov в настройках для более точного наведения.
+
+    </p>
+    <p>- Command input</p>
+    <p>
+      Не отводя курсора зажмите F3 + C, в чате должно
+      написаться о том что ваши координаты сохранены в буфер обмена.
+
+      Вставьте скопированную команду в первое окно на сайте
+
+    </p>
+    <p>- Manual input</p>
+    <p>
+      Включите чат "T" чтобы зафиксировать положение камеры и
+      перепишите ваши x и z координаты в соответсвующие окошки.
+
+      Вам так-же нужно указать pitch камеры
+      который можно увидеть под координатами в F3.
+
+      Шаг 2.
+      Отойдите на 50-200 (больше лучше) блоков от первого
+      броска и проделайте все тоже самое что и в первом броске
+      и вставьте команду в второе поле.
+
+    </p>
+    <p>
+      Шаг 3.
+      Нажмите на кнопку "Просчитать" и идите на полученные координаты.
+
+      Шаг 4.
+      По прибытию на координаты, координаты могут быть не точными
+      и зависят от точного наведения в 1 и 2 шаге.
+      Вы можете повысить точность выпустив больше глаз.
+      Включите подсветку чанков F3 + G
+      и ищите перекрестье чанков где глаза идут под землю.
+
+      После того как вы найдете это перекрестье чанков,
+      включите F3 и идите на координаты [4, 4] внутри чанка,
+      после этого копайте прямо вниз.
+      Если вы сделали все правильно, вы упадете прямиком в
+      лестницу с которой начинается генерация крепости.
+
+      Поздравляю с находкой!
+    </p>
+
+    <p class="offsetheights">2. How it works?</p>
+    <p>
+      Для понимая процесса вычисления, вам требуется
+      знания 8го класса математики, линейные функции и триагонометрия.
+
+    </p>
+
+    <p>- Converting minecraft coords system in valid one</p>
+    <p>
+      После того как сайт получит координаты двух точек,
+      я преобразую z в отрицательную y,
+      потому что север в майнкрафте находиться в -z направлении.
+
+    </p>
+
+    <p>- Finding slope for linear functions</p>
+    <p>
+      поворот камеры находиться в градусах между -180 до 180,
+      поэтому нужно добавить 180 для привычных 0 до 360.
+      После добавления 180, 0 градусов указывает на позитивную Y ось,
+      а должно быть в позитивную X. Поэтому добавляем еще 90.
+      И преобразуем в радианы для вычислений.
+      rad = (minecraftDegree + 180 + 90) * PI / 180;
+
+      После этого используя триагонометрию получаем направляющий вектор
+      x = cos(rad)
+      y = -sin(rad)
+
+      После этого делим y на x чтобы получить рост линейной функции.
+      slope = y / x
+
+    </p>
+
+    <p>Completing linear functions</p>
+    <p>
+      После того как мы найдем рост для обоих функций,
+      нужно высчитать тангент.
+
+      линейная функция выглядит вот так:
+      y = slope * x + tangent
+
+      мы знаем x, y и рост функции, поэтому найти тангент
+      можно поменяв y и tangent местами:
+      tangent = slope * x + y
+    </p>
+
+    <p>- Finding intersection of linear functions</p>
+    <p>
+      После того как мы узнали обе линейные функции,
+      можно найти точку пересечения,
+      это и есть координаты нашей крепости.
+
+      Для этого нужно сопоставить
+      две функции и высчитать x координату.
+      x = (f2.tangent - f1.tangent) / (f1.slope - f2.slope);
+
+      и использовать ее в другой функции чтобы найти y.
+      y = f1.slope * x + f1.tangent;
+
+      Поздравляю! Мы только что нашли крепость,
+      нужно всего лишь сделать Y опять отрицательным для майнкрафта
+      x = x
+      z = -y
+    </p>
+  </main>
+</body>
+
 </html>

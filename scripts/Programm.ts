@@ -4,54 +4,48 @@ import { GraphCalculator } from "./GraphCalculator.js";
 import * as InputToggle from "./InputToggle.js";
 import * as StrongholdFinder from "./StrongholdFinder.js"
 
-function WriteOutput(text: string): void
-{
-    const outputElement = <HTMLParagraphElement> document.getElementById("output");
-    if(outputElement === null) return;
+function WriteOutput(text: string): void {
+    const outputElement = <HTMLParagraphElement>document.getElementById("output");
+    if (outputElement === null) return;
     outputElement.innerText = text;
 }
 
-class Programm
-{
+class Programm {
     graphCalculator = new GraphCalculator();
 
-    constructor()
-    {
+    constructor() {
         this.OnLoad();
     }
 
-    Main(): void
-    {
+    Main(): void {
         var answer = this.FindAnswer();
         WriteOutput(answer);
     }
 
-    private OnLoad(): void
-    {
+    private OnLoad(): void {
+        Input.LoadCookie();
+        InputToggle.Update();
+
         const programmRef = this;
 
-        const button = <HTMLButtonElement> document.getElementById("calculate_Button");
-        if(button !== null) button.addEventListener("click", () => { programmRef.Main(); });
+        const button = <HTMLButtonElement>document.getElementById("calculate_Button");
+        if (button !== null) button.addEventListener("click", () => { programmRef.Main(); });
 
         // copy to clipboard
-        const output = <HTMLParagraphElement> document.getElementById("output");
-        if(output !== null) output.addEventListener(("click"), () => {
+        const output = <HTMLParagraphElement>document.getElementById("output");
+        if (output !== null) output.addEventListener(("click"), () => {
             navigator.clipboard.writeText(output.innerHTML.split("<br>").shift());
         });
-
-        InputToggle.Update();
-        Input.LoadCookie();
     }
 
-    private FindAnswer(): string
-    {
+    private FindAnswer(): string {
         var answer = "";
 
         var inputData = Input.ReadInput();
-        if(inputData === null) return "invalid input";
+        if (inputData === null) return "invalid input";
         Input.SaveCookie(inputData);
 
-        if(StrongholdFinder.Test() === false) return "StrongholdFinder did not pass the test";
+        if (StrongholdFinder.Test() === false) return "StrongholdFinder did not pass the test";
 
         var solution = StrongholdFinder.FindAll(inputData);
         var strongholdPos = solution.strongholdsPos[0];
@@ -59,13 +53,15 @@ class Programm
 
         answer += "x: " + strongholdPos.x + " z: " + strongholdPos.y;
 
-        this.graphCalculator.Update(
-            inputData, solution.endEyeRays, 
-            new Vector(strongholdPos.x, -strongholdPos.y)
-        );
+        if (this.graphCalculator.calculator !== null) {
+            this.graphCalculator.Update(
+                inputData, solution.endEyeRays,
+                solution.strongholdsPos
+            );
+        }
 
         var ring: number = StrongholdFinder.GetRing(strongholdPos);
-        if(ring === -1) answer += "\n ⚠ intersection is outside of generation rings";
+        if (ring === -1) answer += "\n ⚠ intersection is outside of generation rings";
         else answer += "\n ring: " + (ring + 1);
 
         return answer;

@@ -1,92 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stronghold Finder</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="font/minecraftFonts.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
-  </head>
-  <body class="column">
-    <main>
-      <!-- Logo + Title + Link to FAQ -->
-      <a href="#" class="logo"><img class="logo" src="logo.webp"></a>
-      <h3>Stronghold Finder (in dev.)</h3>
-      <a href="FAQ.html">FAQ - How to use</a>
-      
-      <!-- Input selector -->
-      <div class="inputSelector row">
-        <div class="inputOption column offsetsides offsetheights">
-          <input class="radioInput" type="radio" name="radioInput" id="radioInputCommand" checked>
-          <span class="visibleOption">Command Search</span>
-        </div>
-  
-        <div class="inputOption column offsetsides offsetheights">
-          <input class="radioInput" type="radio" name="radioInput" id="radioInputManual">
-          <span class="visibleOption">Manual Search</span>
-        </div>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stronghold Finder</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="font/minecraftFonts.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body class="column">
+  <main>
+    <!-- Logo + Title + Link to FAQ -->
+    <a href="#" class="logo"><img class="logo" src="logo.webp"></a>
+    <h3>Stronghold Finder (in dev.)</h3>
+    <a href="FAQ.html">FAQ - How to use</a>
+
+    <!-- Input selector -->
+    <div class="inputSelector row">
+      <div class="inputOption column offsetsides offsetheights">
+        <input class="radioInput" type="radio" name="radioInput" id="radioInputCommand" checked>
+        <span class="visibleOption">Command Search</span>
       </div>
 
-      <!-- Command input -->
-      <div id="commandInput">
-        <form class="column offsetheights">
-          <div class="inputField row">
-            <label>first throw</label>
-            <input class="commandInput" type="text" id="command_throw1" placeholder="/execute in ...">
-          </div>
-          <div class="inputField row">
-            <label>second throw</label>
-            <input class="commandInput" type="text" id="command_throw2" placeholder="/execute in ...">
-          </div>
-        </form>
+      <div class="inputOption column offsetsides offsetheights">
+        <input class="radioInput" type="radio" name="radioInput" id="radioInputManual">
+        <span class="visibleOption">Manual Search</span>
       </div>
+    </div>
 
-      <!-- Manual input -->
-      <div id="manualInput">
-        <div class="row manualInput">
-          <div class="column offsetsides offsetheights">
-            First point
-            <div class="inputField">
-              <label>x:</label>
-              <input type="number" id="first_VectorX" value="0">
-            </div>
-            <div class="inputField">
-              <label>z:</label>
-              <input type="number" id="first_VectorZ" value="0">
-            </div>
-            <div class="inputField">
-              <label>angle:</label>
-              <input type="number" id="first_VectorAngle" max="180" min="-180" value="0">
-            </div>
+    <!-- Command input -->
+    <div id="commandInput">
+      <form class="column offsetheights">
+        <div class="inputField row">
+          <label>first throw</label>
+          <input class="commandInput" type="text" id="command_throw1" placeholder="/execute in ...">
+        </div>
+        <div class="inputField row">
+          <label>second throw</label>
+          <input class="commandInput" type="text" id="command_throw2" placeholder="/execute in ...">
+        </div>
+      </form>
+    </div>
+
+    <!-- Manual input -->
+    <div id="manualInput">
+      <div class="row manualInput">
+        <div class="column offsetsides offsetheights">
+          First point
+          <div class="inputField">
+            <label>x:</label>
+            <input type="number" id="first_VectorX" value="0">
           </div>
-  
-          <div class="column offsetsides offsetheights">
-            Second point
-            <div class="inputField">
-              <label>x:</label>
-              <input type="number" id="second_VectorX" value="0">
-            </div>
-            <div class="inputField">
-              <label>z:</label>
-              <input type="number" id="second_VectorZ" value="0">
-            </div>
-            <div class="inputField">
-              <label>angle:</label>
-              <input type="number" id="second_VectorAngle" max="180" min="-180" value="0">
-            </div>
+          <div class="inputField">
+            <label>z:</label>
+            <input type="number" id="first_VectorZ" value="0">
+          </div>
+          <div class="inputField">
+            <label>angle:</label>
+            <input type="number" id="first_VectorAngle" max="180" min="-180" value="0">
+          </div>
+        </div>
+
+        <div class="column offsetsides offsetheights">
+          Second point
+          <div class="inputField">
+            <label>x:</label>
+            <input type="number" id="second_VectorX" value="0">
+          </div>
+          <div class="inputField">
+            <label>z:</label>
+            <input type="number" id="second_VectorZ" value="0">
+          </div>
+          <div class="inputField">
+            <label>angle:</label>
+            <input type="number" id="second_VectorAngle" max="180" min="-180" value="0">
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Button + Output + Desmos -->
-      <button class="findStronghold offsetheights" id="calculate_Button">Find Stronghold</button>
-      <p id="output"></p>
-      <div class="calculator" id="calculator"></div>
+    <!-- Button + Output + Desmos -->
+    <button class="findStronghold offsetheights" id="calculate_Button">Find Stronghold</button>
+    <p id="output"></p>
+    <div class="calculator" id="calculator"></div>
 
 
-    </main>
-    <script type="module" src="scripts/Programm.js"></script>
-  </body>
+  </main>
+  <script type="module" src="scripts/Programm.js"></script>
+</body>
+
 </html>

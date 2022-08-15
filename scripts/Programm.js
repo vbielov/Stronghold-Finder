@@ -1,4 +1,3 @@
-import { Vector } from "./Vector.js";
 import { Input } from "./Input.js";
 import { GraphCalculator } from "./GraphCalculator.js";
 import * as InputToggle from "./InputToggle.js";
@@ -19,6 +18,8 @@ class Programm {
         WriteOutput(answer);
     }
     OnLoad() {
+        Input.LoadCookie();
+        InputToggle.Update();
         const programmRef = this;
         const button = document.getElementById("calculate_Button");
         if (button !== null)
@@ -29,8 +30,6 @@ class Programm {
             output.addEventListener(("click"), () => {
                 navigator.clipboard.writeText(output.innerHTML.split("<br>").shift());
             });
-        InputToggle.Update();
-        Input.LoadCookie();
     }
     FindAnswer() {
         var answer = "";
@@ -44,7 +43,9 @@ class Programm {
         var strongholdPos = solution.strongholdsPos[0];
         console.log(solution.strongholdsPos);
         answer += "x: " + strongholdPos.x + " z: " + strongholdPos.y;
-        this.graphCalculator.Update(inputData, solution.endEyeRays, new Vector(strongholdPos.x, -strongholdPos.y));
+        if (this.graphCalculator.calculator !== null) {
+            this.graphCalculator.Update(inputData, solution.endEyeRays, solution.strongholdsPos);
+        }
         var ring = StrongholdFinder.GetRing(strongholdPos);
         if (ring === -1)
             answer += "\n ⚠ intersection is outside of generation rings";

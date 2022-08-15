@@ -1,7 +1,7 @@
 import { Vector } from "./Vector.js";
 export class InputData {
 }
-class LinearFunction {
+export class LinearFunction {
     constructor(slope, tangent) {
         this.slope = slope;
         this.tangent = tangent;
@@ -40,7 +40,11 @@ export function Find(inputData) {
     var endEyeRays = GetEndEyeRays(inputData);
     var intersectionPoint = LinearFunction.GetIntersection(endEyeRays[0], endEyeRays[1]);
     // chunk correction [4, ~, 4]
-    var strongholdPos = new Vector(intersectionPoint.x - intersectionPoint.x % 16 + 4, -(intersectionPoint.y - intersectionPoint.y % 16) + 4);
+    // var strongholdPos = new Vector(
+    //     intersectionPoint.x - intersectionPoint.x % 16 + 4,
+    //     -(intersectionPoint.y - intersectionPoint.y % 16) + 4
+    // );
+    var strongholdPos = new Vector(intersectionPoint.x, -intersectionPoint.y);
     return { strongholdPos: strongholdPos, endEyeRays: endEyeRays };
 }
 export function Test() {
@@ -83,6 +87,8 @@ export function FindAll(inputData) {
     strongholds.push(intersection.strongholdPos);
     var direction = Vector.Normilized(intersection.strongholdPos);
     var ring = GetRing(intersection.strongholdPos);
+    if (ring === -1)
+        return { strongholdsPos: strongholds, endEyeRays: intersection.endEyeRays };
     var strongholdsAmount = rings[ring][2];
     var degreeSpace = 360 / strongholdsAmount;
     for (var i = degreeSpace; i < 360; i += degreeSpace) {

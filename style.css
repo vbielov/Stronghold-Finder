@@ -19,7 +19,7 @@ main {
     align-items: center;
     text-align: center;
     width: 80vw;
-    max-width: 80vw;
+    max-width: 650px;
 }
 
 a {
