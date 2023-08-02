@@ -1,5 +1,6 @@
 import { Input } from "./Input.js";
 import { GraphCalculator } from "./GraphCalculator.js";
+import { EnchantedBackground } from "./EnchantedBackground.js";
 import * as InputToggle from "./InputToggle.js";
 import * as StrongholdFinder from "./StrongholdFinder.js";
 function WriteOutput(text) {
@@ -54,5 +55,6 @@ class Programm {
         return answer;
     }
 }
+var background = new EnchantedBackground();
 var programm = new Programm();
 programm.Main();

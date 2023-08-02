@@ -1,6 +1,7 @@
 import { Vector } from "./Vector.js";
 import { Input } from "./Input.js";
 import { GraphCalculator } from "./GraphCalculator.js";
+import { EnchantedBackground } from "./EnchantedBackground.js";
 import * as InputToggle from "./InputToggle.js";
 import * as StrongholdFinder from "./StrongholdFinder.js"
 
@@ -68,5 +69,6 @@ class Programm {
     }
 }
 
+var background: EnchantedBackground = new EnchantedBackground();
 var programm = new Programm();
 programm.Main();
