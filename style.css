@@ -1,3 +1,8 @@
+html {
+    min-height: 100%;
+    position: relative;
+}
+
 body {
     margin: 0;
     width: 100%;
@@ -7,7 +12,7 @@ body {
 
     background-color: #040d16;
     color: #e8e8e8;
-    font-family: 'minecraftregular';
+    font-family: 'minecraft';
     font-size: 24px;
     max-height: 100%;
     min-height: 100vh;
@@ -26,7 +31,8 @@ main {
     align-items: center;
     text-align: center;
     width: 80vw;
-    max-width: 650px;
+    max-width: 900px;
+    margin-top: 50px;
 }
 
 a {
@@ -52,16 +58,16 @@ input {
     border-bottom: 2px solid;
     border-color: #494f54;
     color: #e8e8e8;
-    font-family: 'minecraftregular';
+    font-family: 'minecraft';
     font-size: 20px;
 }
 
 .findStronghold {
     border: 0;
-    padding: 1.25rem 2rem;
-    font-family: 'minecraftregular';
+    padding: 0.75rem 2rem;
+    font-family: 'minecraft';
     font-size: 24px;
-    transition: 100ms;
+    transition: 50ms;
     cursor: pointer;
     color: black;
     background-color: #e8e8e8;
@@ -106,7 +112,7 @@ input {
     border: 0;
 }
 
-.commandInput {
+.commandInpt {
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -129,8 +135,9 @@ input::placeholder {
 
 .calculator {
     margin-top: 20px;
-    width: 500px;
-    height: 300px;
+    width: 100%;
+    height: 506px;
+    margin: 0px;
 }
 
 .inputSelector {
@@ -149,8 +156,6 @@ input::placeholder {
 
 .visibleOption {
     position: absolute;
-    width: 250px;
-    height: 30px;
     text-align: center;
     z-index: 0;
     border-color: #e8e8e8;
@@ -177,4 +182,21 @@ input::placeholder {
 
 #output {
     cursor: pointer;
+}
+
+hr {
+    width: 100%;
+    color: #e8e8e8;
+}
+
+.fullScreenContainer {
+    display: flex; 
+    justify-content: end; 
+    width: 100%;
+}
+
+.fullScreenButton {
+    width: 40px; 
+    height: 40px; 
+    font-size: 1em;
 }

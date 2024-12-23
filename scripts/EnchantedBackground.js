@@ -1,4 +1,11 @@
 import { Vector } from "./Vector.js";
+class Entity {
+    constructor(startPosition, lifeTime, letterIndex) {
+        this.pos = startPosition;
+        this.time = lifeTime;
+        this.index = letterIndex;
+    }
+}
 export class EnchantedBackground {
     constructor() {
         // Canvas
@@ -6,13 +13,9 @@ export class EnchantedBackground {
         this.ctx = this.canvas.getContext("2d");
         this.ctx.imageSmoothingEnabled = false;
         // Image
-        this.atlasIsReady = false;
         this.galacticAlphabetAtlas = new Image();
         const ref = this;
-        this.galacticAlphabetAtlas.onload = function () {
-            ref.atlasIsReady = true;
-        };
-        this.galacticAlphabetAtlas.src = "./galactic_alphabet.png";
+        this.galacticAlphabetAtlas.src = "./resources/galactic_alphabet.png";
         // Resizing
         addEventListener("resize", (event) => {
             ref.Resize();
@@ -20,18 +23,14 @@ export class EnchantedBackground {
         this.Resize();
         // Entity
         this.entities = [];
-        // Updating
-        const FPS = 15;
-        this.deltaTime = 1.0 / FPS;
-        setInterval(() => this.Update(), this.deltaTime * 1000);
     }
     Update() {
-        if (!this.atlasIsReady)
-            return;
+        let deltaTime = Date.now() / 1000 - this.lastTime;
+        this.lastTime = Date.now() / 1000;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         // kill old entities
         this.entities = this.entities.filter((entity) => {
-            return (entity.time -= this.deltaTime) >= 0 && entity.pos.y > 0;
+            return (entity.time -= deltaTime) >= 0 && entity.pos.y > 0;
         });
         // Spawn new entities if old died
         const minEntityCount = 100;
@@ -43,9 +42,10 @@ export class EnchantedBackground {
         // Update & Draw entities
         for (var i = 0; i < this.entities.length; i++) {
             const speed = 20;
-            this.entities[i].pos.y -= speed * this.deltaTime;
+            this.entities[i].pos.y -= speed * deltaTime;
             this.DrawLetter(this.entities[i].index, this.entities[i].pos);
         }
+        requestAnimationFrame(() => this.Update());
     }
     DrawLetter(index, position) {
         const uvGridSize = 16;
@@ -55,14 +55,9 @@ export class EnchantedBackground {
     }
     Resize() {
         const resolutionFactor = 0.5;
-        this.ctx.canvas.width = window.innerWidth * resolutionFactor;
-        this.ctx.canvas.height = window.innerHeight * resolutionFactor;
+        this.canvas.width = document.body.clientWidth * resolutionFactor;
+        this.canvas.height = document.body.clientHeight * resolutionFactor;
     }
 }
-class Entity {
-    constructor(startPosition, lifeTime, letterIndex) {
-        this.pos = startPosition;
-        this.time = lifeTime;
-        this.index = letterIndex;
-    }
-}
+var background = new EnchantedBackground();
+requestAnimationFrame(() => background.Update());

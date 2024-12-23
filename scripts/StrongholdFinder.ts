@@ -89,7 +89,7 @@ export function Test(): boolean {
 }
 
 // https://minecraft.fandom.com/wiki/Stronghold?file=Strongholds_1.9.png
-const rings: number[][] = [
+export const rings: number[][] = [
     // [from, to, amount]
     [1280, 2816, 3], // 1 ring
     [4352, 5888, 6], // 2 ring

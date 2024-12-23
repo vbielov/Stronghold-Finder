@@ -14,9 +14,15 @@
   <canvas class="backgroundCanvas" id="backgroundCanvas"></canvas>
   <main>
     <!-- Logo + Title + Link to FAQ -->
-    <a href="#" class="logo"><img class="logo" src="logo.webp"></a>
+    <div id="endPortalFrame">
+      <a href="#" class="logo"><img class="logo" src="resources/End_Portal_Frame.png"></a>
+    </div>
+    <div id="filledEndPortalFrame" hidden>
+      <a href="#" class="logo"><img class="logo" src="resources/Filled_End_Portal_Frame.png"></a>
+    </div>
+    
     <h3>Stronghold Finder (in dev.)</h3>
-    <a href="FAQ.html">FAQ - How to use</a>
+    <a href="FAQ.html">FAQ - How to use (rus.)</a>
 
     <!-- Input selector -->
     <div class="inputSelector row">
@@ -85,11 +91,14 @@
     <!-- Button + Output + Desmos -->
     <button class="findStronghold offsetheights" id="calculate_Button">Find Stronghold</button>
     <p id="output"></p>
+    <hr>
     <div class="calculator" id="calculator"></div>
-
+    <div class="fullScreenContainer"><button id="fullscreen" class="fullScreenButton">⛶</button></div>
+    <div style="margin-bottom: 100px"></div>
 
   </main>
   <script type="module" src="scripts/Programm.js"></script>
+  <script type="module" src="scripts/EnchantedBackground.js"></script>
 </body>
 
 </html>

@@ -1,13 +1,26 @@
 import { Vector } from "./Vector.js";
 
+class Entity
+{
+    pos: Vector;
+    time: number;
+    index: number;
+
+    constructor(startPosition: Vector, lifeTime: number, letterIndex: number)
+    {
+        this.pos = startPosition;
+        this.time = lifeTime;
+        this.index = letterIndex;
+    }
+}
+
 export class EnchantedBackground
 {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
     galacticAlphabetAtlas: HTMLImageElement;
-    atlasIsReady: boolean;
     entities: Entity[];
-    deltaTime: number;
+    lastTime: number;
 
     constructor() {
         // Canvas
@@ -16,14 +29,10 @@ export class EnchantedBackground
         this.ctx.imageSmoothingEnabled = false;
 
         // Image
-        this.atlasIsReady = false;
         this.galacticAlphabetAtlas = new Image();
         const ref = this;
-        this.galacticAlphabetAtlas.onload = function() {
-            ref.atlasIsReady = true;
-        }
-        this.galacticAlphabetAtlas.src = "./galactic_alphabet.png";
-
+        this.galacticAlphabetAtlas.src = "./resources/galactic_alphabet.png";
+        
         // Resizing
         addEventListener("resize", (event) => {
             ref.Resize();
@@ -32,22 +41,17 @@ export class EnchantedBackground
 
         // Entity
         this.entities = [];
-
-        // Updating
-        const FPS = 15;
-        this.deltaTime = 1.0 / FPS;
-        setInterval(() => this.Update(), this.deltaTime * 1000);
     }
 
-    private Update(): void {
-        if(!this.atlasIsReady)
-            return;
+    public Update(): void {
+        let deltaTime: number = Date.now() / 1000 - this.lastTime;
+        this.lastTime = Date.now() / 1000;
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // kill old entities
         this.entities = this.entities.filter((entity) => {
-            return (entity.time -= this.deltaTime) >= 0 && entity.pos.y > 0
+            return (entity.time -= deltaTime) >= 0 && entity.pos.y > 0
         });
 
         // Spawn new entities if old died
@@ -72,11 +76,11 @@ export class EnchantedBackground
         for(var i = 0; i < this.entities.length; i++)
         {
             const speed = 20;
-            this.entities[i].pos.y -= speed * this.deltaTime;
+            this.entities[i].pos.y -= speed * deltaTime;
             
             this.DrawLetter(this.entities[i].index, this.entities[i].pos);
         }
-
+        requestAnimationFrame(() => this.Update());
     }
 
     private DrawLetter(index: number, position: Vector): void {
@@ -99,23 +103,10 @@ export class EnchantedBackground
 
     private Resize(): void {
         const resolutionFactor = 0.5;
-        this.ctx.canvas.width  = window.innerWidth * resolutionFactor;
-        this.ctx.canvas.height = window.innerHeight * resolutionFactor;
-    }
-
-
-}
-
-class Entity
-{
-    pos: Vector;
-    time: number;
-    index: number;
-
-    constructor(startPosition: Vector, lifeTime: number, letterIndex: number)
-    {
-        this.pos = startPosition;
-        this.time = lifeTime;
-        this.index = letterIndex;
+        this.canvas.width  = document.body.clientWidth * resolutionFactor;
+        this.canvas.height = document.body.clientHeight * resolutionFactor;
     }
 }
+
+var background: EnchantedBackground = new EnchantedBackground();
+requestAnimationFrame(() => background.Update());

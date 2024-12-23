@@ -1,7 +1,5 @@
-import { Vector } from "./Vector.js";
 import { Input } from "./Input.js";
 import { GraphCalculator } from "./GraphCalculator.js";
-import { EnchantedBackground } from "./EnchantedBackground.js";
 import * as InputToggle from "./InputToggle.js";
 import * as StrongholdFinder from "./StrongholdFinder.js"
 
@@ -12,7 +10,7 @@ function WriteOutput(text: string): void {
 }
 
 class Programm {
-    graphCalculator = new GraphCalculator();
+    graphCalculator: GraphCalculator;
 
     constructor() {
         this.OnLoad();
@@ -24,19 +22,33 @@ class Programm {
     }
 
     private OnLoad(): void {
-        Input.LoadCookie();
+        this.graphCalculator = new GraphCalculator();
+        let inputDataCookie = Input.LoadCookie();
+        if(inputDataCookie !== null)
+            this.Main();
         InputToggle.Update();
 
         const programmRef = this;
 
         const button = <HTMLButtonElement>document.getElementById("calculate_Button");
-        if (button !== null) button.addEventListener("click", () => { programmRef.Main(); });
+        if (button !== null) button.addEventListener("click", () => { 
+            programmRef.Main();
+        });
 
         // copy to clipboard
         const output = <HTMLParagraphElement>document.getElementById("output");
         if (output !== null) output.addEventListener(("click"), () => {
             navigator.clipboard.writeText(output.innerHTML.split("<br>").shift());
+            console.log("copied to clipboard");
+            const outputElement = <HTMLParagraphElement>document.getElementById("output");
+            outputElement.innerText = outputElement.innerText.replace("🗐", "✓");
         });
+
+        document.onkeydown = (event) => {
+            if (event.key === 'Enter') {
+                this.Main();
+            }
+        };
     }
 
     private FindAnswer(): string {
@@ -50,25 +62,35 @@ class Programm {
 
         var solution = StrongholdFinder.FindAll(inputData);
         var strongholdPos = solution.strongholdsPos[0];
-        console.log(solution.strongholdsPos);
 
-        answer += "x: " + strongholdPos.x + " z: " + strongholdPos.y;
+        answer += "x: " + Math.round(strongholdPos.x * 100) / 100;
+        answer += " z: " + Math.round(strongholdPos.y * 100) / 100;
+        answer += " 🗐";
+        this.graphCalculator.Update(
+            inputData, solution.endEyeRays,
+            solution.strongholdsPos
+        );
 
-        if (this.graphCalculator.calculator !== null) {
-            this.graphCalculator.Update(
-                inputData, solution.endEyeRays,
-                solution.strongholdsPos
-            );
-        }
 
-        var ring: number = StrongholdFinder.GetRing(strongholdPos);
+
+        var ring = StrongholdFinder.GetRing(strongholdPos);
         if (ring === -1) answer += "\n ⚠ intersection is outside of generation rings";
-        else answer += "\n ring: " + (ring + 1);
+        else {
+            const endPortalFrame = document.getElementById("endPortalFrame") as HTMLDivElement;
+            const endPortalEye = document.getElementById("filledEndPortalFrame") as HTMLDivElement;
+            endPortalFrame.hidden = true;
+            endPortalEye.hidden = false;
+            var audios = [
+                new Audio('./resources/eye_place1.mp3'),
+                new Audio('./resources/eye_place2.mp3'),
+                new Audio('./resources/eye_place3.mp3')
+            ];
+            audios[Math.floor(Math.random() * audios.length)].play();
+            answer += "\n ring: " + (ring + 1);
+        }
 
         return answer;
     }
 }
 
-var background: EnchantedBackground = new EnchantedBackground();
 var programm = new Programm();
-programm.Main();

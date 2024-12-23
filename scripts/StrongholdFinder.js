@@ -62,15 +62,15 @@ export function Test() {
     return false;
 }
 // https://minecraft.fandom.com/wiki/Stronghold?file=Strongholds_1.9.png
-const rings = [
+export const rings = [
     // [from, to, amount]
-    [1280, 2816, 3],
-    [4352, 5888, 6],
-    [7424, 8960, 10],
-    [10496, 12032, 15],
-    [13568, 15104, 21],
-    [16640, 18176, 28],
-    [19712, 21248, 36],
+    [1280, 2816, 3], // 1 ring
+    [4352, 5888, 6], // 2 ring
+    [7424, 8960, 10], // 3 ring
+    [10496, 12032, 15], // 4 ring
+    [13568, 15104, 21], // 5 ring
+    [16640, 18176, 28], // 6 ring
+    [19712, 21248, 36], // 7 ring
     [22784, 24320, 9], // 8 ring
 ];
 export function GetRing(position) {

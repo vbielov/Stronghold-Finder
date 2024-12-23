@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
         "target": "ES2015",
-        "watch": true
       }
 }
